@@ -1,4 +1,4 @@
-import { Text, View, Button, StyleSheet } from 'react-native';
+import { Text, View, Button, StyleSheet, Alert } from 'react-native';
 import {useState, useEffect, useRef} from 'react';
 
 
@@ -36,9 +36,22 @@ useEffect( ()=>{
 const demarrage = ()=>{ setIsrunning(true) }
 const arret = ()=>{ setIsrunning(false) }
 
+
 const reset = ()=> {
 setMinute(0)
 setSecond(0)
+}
+
+const notif = () => {
+
+ Alert.alert(
+      'Alerte',
+      'votre progression sera remise à 0 !',
+      [
+        { text: 'reset', onPress: () => { reset(); arret()} }
+      ],
+      { cancelable: false } // pour empêcher q'un click sur le côté ne fasse disparaitre l'alerte
+    );
 }
 return(
     <View style={styles.container}>
@@ -49,7 +62,7 @@ return(
            />
            <Button
            title = {"reset"}
-           onPress = { isrunning ? () => { reset(); arret()} : reset}
+           onPress = { isrunning ? notif : reset}
            />
     </View>
     )
