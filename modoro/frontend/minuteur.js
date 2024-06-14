@@ -55,12 +55,13 @@ const notif = () => {
 }
 return(
     <View style={styles.container}>
-        <Text>{minute} : {second} </Text>
+        <Text style = {styles.text}> {minute} : {second} </Text>
         <Button
            title={isrunning ? "arrêt":"démarrage"}
            onPress={ isrunning ? arret : demarrage}
            />
            <Button
+           style = {styles.button}
            title = {"reset"}
            onPress = { isrunning ? notif : reset}
            />
@@ -71,6 +72,11 @@ return(
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'lightgrey',
-    padding: 20,
+    padding: 40,
+    borderRadius : 90,
+  },
+  text : {
+  fontSize : 25,
+   textAlign: 'center',
   },
 });
