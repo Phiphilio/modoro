@@ -44,13 +44,13 @@ setSecond(0)
 
 const notif = () => {
 
- Alert.alert(
-      'Alerte',
-      'votre progression sera remise à 0 !',
+ Alert.alert( //fonction qui a 3 arguments
+      'Alerte', //1er argument, le nom de la boite
+      'votre progression sera remise à 0 !',//2e argument message de la boite
       [
         { text: 'reset', onPress: () => { reset(); arret()} }
-      ],
-      { cancelable: false } // pour empêcher q'un click sur le côté ne fasse disparaitre l'alerte
+      ], //3eme argument, un tableau qui contient des objets représentants les boutons
+      { cancelable: false } // 4eme arguments facultatifs pour empêcher q'un click sur le côté ne fasse disparaitre l'alerte
     );
 }
 return(
