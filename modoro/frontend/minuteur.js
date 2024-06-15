@@ -6,7 +6,7 @@ export  function Minute () {
 const [minute, setMinute] = useState(0)
 const [second, setSecond] = useState(0)
 const [isrunning, setIsrunning] = useState(false)
-const intervalRef = useRef(null)
+const intervalRef = useRef(null) // https://react.dev/learn/referencing-values-with-refs
 
 useEffect( ()=>{
     if ( isrunning ) {
@@ -33,8 +33,8 @@ useEffect( ()=>{
 }, [isrunning])
 
 
-const demarrage = ()=>{ setIsrunning(true) }
-const arret = ()=>{ setIsrunning(false) }
+const demarrage = ()=> setIsrunning(true)
+const arret = ()=> setIsrunning(false)
 
 
 const reset = ()=> {
@@ -50,7 +50,7 @@ const notif = () => {
       [
         { text: 'reset', onPress: () => { reset(); arret()} }
       ], //3eme argument, un tableau qui contient des objets représentants les boutons
-      { cancelable: false } // 4eme arguments facultatifs pour empêcher q'un click sur le côté ne fasse disparaitre l'alerte
+      { cancelable: true } // 4eme arguments facultatifs. le mettre à true permet que l'alerte disparaisse quand on touche une partie de l'écran
     );
 }
 return(
