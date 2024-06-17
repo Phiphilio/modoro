@@ -16,7 +16,15 @@ useEffect( ()=>{
     intervalRef.current = setInterval(()=>{
         setSecond( preseconde => {
         if ( preseconde === 59 ){
-        setMinute( preminute => preminute+1 );
+        setMinute( preminute => {
+            if(preminute === 2-1) {
+            /*vu que la vérification arrive à 59s, je dois mettre la valeur n-1*/
+            setIsrunning(false)
+            return preminute = 2
+                } else{
+                   return preminute+1
+                }
+            } );
         return 0
         }
         return preseconde +1
