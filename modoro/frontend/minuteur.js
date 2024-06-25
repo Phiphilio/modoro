@@ -2,10 +2,10 @@ import { Text, View, Button, StyleSheet, Alert } from 'react-native';
 import {useState, useEffect, useRef} from 'react';
 
 
-export  function Minute () {
+export  function Minute ({x, onStop}) {
 const [minute, setMinute] = useState(0)
 const [second, setSecond] = useState(0)
-const [isrunning, setIsrunning] = useState(false)
+const [isrunning, setIsrunning] = useState(true)
 const intervalRef = useRef(null) // https://react.dev/learn/referencing-values-with-refs
 
 useEffect( ()=>{
@@ -17,10 +17,11 @@ useEffect( ()=>{
         setSecond( preseconde => {
         if ( preseconde === 59 ){
         setMinute( preminute => {
-            if(preminute === 2-1) {
+            if(preminute === x-1) {
             /*vu que la vérification arrive à 59s, je dois mettre la valeur n-1*/
             setIsrunning(false)
-            return preminute = 2
+            onStop()
+            return  x
                 } else{
                    return preminute+1
                 }
@@ -64,18 +65,11 @@ const notif = () => {
 return(
     <View style={styles.container}>
         <Text style = {styles.text}> {minute} : {second} </Text>
-        <Button
-           title={isrunning ? "arrêt":"démarrage"}
-           onPress={ isrunning ? arret : demarrage}
-           />
-           <Button
-           style = {styles.button}
-           title = {"reset"}
-           onPress = { isrunning ? notif : reset}
-           />
+
     </View>
     )
 }
+
 
 const styles = StyleSheet.create({
   container: {
