@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import { Minute } from './frontend/minuteur.js';
 
+//https://react.dev/learn/passing-props-to-a-component
 export default function App() {
   const [duration, setDuration] = useState(0);
   const [pause, setPause] = useState(0);
@@ -55,13 +56,22 @@ export default function App() {
       {isRunning ? (
         <Minute x={timerDuration} onStop={handleBreakTimer} />
       ) : (
-        <Text>repose toi bien</Text>
+        !pauseRunning ? (
+         <Text style = {styles.text1}>repose toi bien</Text>
+        ) :(
+        <Text style = {styles.text2}>repose toi bien</Text>
+        )
       )}
-      {pauseRunning ? (
-        <Minute x={pauseDuration} onStop={handleRestartTimer} />
-      ) : (
-        <Text>courage !!</Text>
-      )}
+     {pauseRunning ? (
+       <Minute x={pauseDuration} onStop={handleRestartTimer} />
+     ) : (
+       !isRunning ? (
+         <Text style={styles.text1}>courage !!</Text>
+       ) : (
+         <Text style={styles.text2}>courage !!</Text>
+       )
+     )}
+
       <StatusBar style="auto" />
     </View>
   );
@@ -86,4 +96,7 @@ const styles = StyleSheet.create({
   text1 : {
   display : 'none',
   },
+  text2 : {
+    fontSize : 40,
+    },
 });
