@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
 import { Minute } from './frontend/minuteur.js';
 
 //https://react.dev/learn/passing-props-to-a-component
@@ -9,6 +9,8 @@ export default function App() {
   const [pause, setPause] = useState(0);
   const [timerDuration, setTimerDuration] = useState(0);
   const [pauseDuration, setPauseDuration] = useState(0);
+  const [nbreModoro, setNbreModoro] = useState(0)
+
   const [isRunning, setIsRunning] = useState(false);
   const [pauseRunning, setPauseRunning] = useState(false);
 
@@ -26,7 +28,26 @@ export default function App() {
   const handleRestartTimer = () => {
     setIsRunning(true);
     setPauseRunning(false);
+    setNbreModoro(x => x+1)
   };
+
+const notif = () => {
+
+ Alert.alert( //fonction qui a 3 arguments
+      'Alerte', //1er argument, le nom de la boite
+      'votre progression sera remise à 0 !',//2e argument message de la boite
+      [
+        { text: 'reset', onPress: () => stopEveryThing() }
+      ], //3eme argument, un tableau qui contient des objets représentants les boutons
+      { cancelable: true } // 4eme arguments facultatifs. le mettre à true permet que l'alerte disparaisse quand on touche une partie de l'écran
+    );
+}
+  const stopEveryThing = ()=> {
+
+  setIsRunning(false);
+  setPauseRunning(false);
+  setNbreModoro(0)
+  }
 
   return (
     <View style={styles.container}>
@@ -52,8 +73,9 @@ export default function App() {
             onPress={handleStartTimer}
           />
         </View>
-      ) : (
+      ) : (<>
         <Text style = {styles.text1}>Bon travail !!</Text>
+        <Text>{nbreModoro}</Text></>
       )}
       {isRunning ? (
         <Minute x={timerDuration} onStop={handleBreakTimer} />
@@ -61,7 +83,11 @@ export default function App() {
         !pauseRunning ? (
          <Text style = {styles.text1}>repose toi bien</Text>
         ) :(
+        <TouchableOpacity
+        onPress = {notif}
+        >
         <Text style = {styles.text2}>repose toi bien</Text>
+        </TouchableOpacity>
         )
       )}
      {pauseRunning ? (
@@ -70,7 +96,11 @@ export default function App() {
        !isRunning ? (
          <Text style={styles.text1}>courage !!</Text>
        ) : (
+        <TouchableOpacity
+        onPress = {notif}
+        >
          <Text style={styles.text2}>courage !!</Text>
+         </TouchableOpacity>
        )
      )}
 
