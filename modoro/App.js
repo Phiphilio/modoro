@@ -32,13 +32,15 @@ export default function App() {
     <View style={styles.container}>
       {!isRunning && !pauseRunning ? (
         <View>
-          <Text>modoro</Text>
+          <Text style = {styles.titre}>modoro</Text>
+          <Text> temps de travail</Text>
           <TextInput
             style={styles.input}
             keyboardType="numeric"
             onChangeText={(text) => setDuration(text)}
             value={String(duration)}
           />
+          <Text> temps de repos </Text>
           <TextInput
             style={styles.input}
             keyboardType="numeric"
@@ -46,7 +48,7 @@ export default function App() {
             value={String(pause)}
           />
           <Button
-            title="Start Timer"
+            title="travailler"
             onPress={handleStartTimer}
           />
         </View>
@@ -85,13 +87,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgrey',
     padding: 20,
   },
+  titre: {
+    flex : 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 20,
+  },
   input: {
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
+    borderRadius: 15,
     marginBottom: 20,
     padding: 10,
-    width: '80%',
+    width: 100,
   },
   text1 : {
   display : 'none',
